@@ -1,19 +1,33 @@
 const prerender = require('prerender');
 const server = prerender({
-  chromeFlags: [ '--no-sandbox', '--headless', '--disable-gpu', '--remote-debugging-port=9222', '--hide-scrollbars','--shm-size=1G','--disable-dev-shm-usage' ],
-  forwardHeaders: true,
-  chromeLocation: '/usr/bin/chromium-browser',
-  logRequests: true,
-  // default 500
-  pageDoneCheckInterval:250
+    chromeFlags: [
+        '--headless',
+        '--no-sandbox',
+        '-–no-zygote',
+        '-–no-first-run',
+        '--disable-gpu',
+        '--disable-dev-shm-usage',
+        '-–disable-setuid-sandbox',
+        '--remote-debugging-port=9222',
+        '-–single-process',
+        '--hide-scrollbars',
+        '--shm-size=1G',
+    ],
+    forwardHeaders: true,
+    chromeLocation: '/usr/bin/chromium-browser',
+    logRequests: true,
+    // default 20000ms
+    pageLoadTimeout: 4 * 1000,
+    // default 500 ms
+    pageDoneCheckInterval: 200,
 });
 
 //server.use(require('prerender-request-blacklist'));
-server.use(require('prerender-memory-cache'))
+server.use(prerender.removeScriptTags());
 server.use(prerender.sendPrerenderHeader());
 server.use(prerender.blockResources());
-server.use(prerender.removeScriptTags());
 server.use(prerender.blacklist());
 server.use(prerender.httpHeaders());
+server.use(require('prerender-memory-cache'))
 
 server.start();
