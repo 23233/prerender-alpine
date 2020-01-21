@@ -17,7 +17,7 @@ const server = prerender({
     chromeLocation: '/usr/bin/chromium-browser',
     logRequests: true,
     // default 20000ms
-    pageLoadTimeout: 4 * 1000,
+    pageLoadTimeout: 6 * 1000,
     // default 500 ms
     pageDoneCheckInterval: 200,
 });
