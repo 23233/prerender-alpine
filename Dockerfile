@@ -8,7 +8,7 @@ ENV CACHE_MAXSIZE=1000
 # cache clear out time default 60
 ENV CACHE_TTL=300
 # wait last request time default 500
-ENV WAIT_AFTER_LAST_REQUEST=100
+ENV WAIT_AFTER_LAST_REQUEST=250
 
 COPY ./package.json .
 COPY ./server.js .
